@@ -1,0 +1,30 @@
+.dialog-container {
+  margin: 20px;
+}
+
+.dialog-title {
+  font-family: var(--mdc-dialog-subhead-font);
+  font-weight: var(--mdc-dialog-subhead-weight);
+  font-size: var(--mdc-dialog-subhead-size);
+}
+
+.mobile-container-button {
+  margin-top: 40px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: end;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.form-field-date {
+  width: 70%;
+}
+
+@media only screen and (max-width: 600px) {
+  .form-field-date {
+    width: 100%;
+  }
+}

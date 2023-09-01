@@ -1,0 +1,90 @@
+<div class="dialog-container" *ngIf="_data && _dialogRef">
+  <span class="dialog-title">{{ _data.action }} Todo</span>
+  <mat-dialog-content> </mat-dialog-content>
+  <ng-container *ngTemplateOutlet="innerContent"> </ng-container>
+  <mat-dialog-actions align="end">
+    <button (click)="closeDialog()" color="primary" mat-button mat-dialog-close>
+      Cancel
+    </button>
+    <button
+      (click)="handleSubmit()"
+      color="primary"
+      mat-button
+      mat-dialog-close
+    >
+      {{ _data.action }}
+    </button>
+  </mat-dialog-actions>
+</div>
+
+<div *ngIf="_data && !_dialogRef">
+  <ng-container *ngTemplateOutlet="innerContent"> </ng-container>
+  <div class="mobile-container-button">
+    <button (click)="back()" color="primary" mat-button>Cancel</button>
+    <button (click)="handleSubmit()" color="primary" mat-button>
+      {{ _data.action }}
+    </button>
+  </div>
+</div>
+
+<ng-template #innerContent>
+  <form>
+    <mat-form-field style="display: block" class="form-field">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="_data!.title"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <button
+        *ngIf="_data!.title"
+        matSuffix
+        mat-icon-button
+        aria-label="title"
+        (click)="_data!.title = ''"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        type="text"
+        [(ngModel)]="_data!.description"
+        [ngModelOptions]="{ standalone: true }"
+        placeholder="Todo description..."
+      ></textarea>
+      <button
+        *ngIf="_data!.description"
+        matSuffix
+        mat-icon-button
+        aria-label="description"
+        (click)="_data!.description = ''"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-date">
+      <mat-label>Todo date</mat-label>
+      <input
+        matInput
+        [ngxMatDatetimePicker]="picker"
+        [(ngModel)]="_data!.date"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <mat-hint>MM/DD/YYYY HH:MM:SS</mat-hint>
+      <ngx-mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></ngx-mat-datepicker-toggle>
+      <ngx-mat-datetime-picker
+        #picker
+        [showSeconds]="true"
+      ></ngx-mat-datetime-picker>
+    </mat-form-field>
+  </form>
+</ng-template>

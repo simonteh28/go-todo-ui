@@ -1,0 +1,65 @@
+<div
+  cdkDropList
+  class="drag-drop-list"
+  (cdkDropListDropped)="drop($event)"
+  *ngIf="!_isLoading"
+>
+  <mat-card
+    class="new-todo"
+    mat-ripple
+    color="primary"
+    (click)="createEditTodo()"
+  >
+    <mat-card-header>
+      <mat-card-title>+ Create a new Todo</mat-card-title>
+    </mat-card-header>
+  </mat-card>
+  <mat-card
+    style="border-bottom: 1px solid #f90"
+    *ngFor="let todo of todos"
+    cdkDrag
+  >
+    <mat-card-header>
+      <mat-card-subtitle>Todo</mat-card-subtitle>
+      <mat-card-title>{{ todo.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ todo.description }}</p>
+      <p>{{ todo.date | date : "YYYY-MM-dd hh:mm" }}</p>
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="createEditTodo(todo)" mat-button>EDIT</button>
+      <button color="warn" (click)="deleteTodo(todo)" mat-button>DELETE</button>
+      <button (click)="markCompleted(todo)" mat-button>MARK COMPLETED</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<mat-card class="completed-todo">
+  <mat-card-header>
+    <mat-card-title>Completed</mat-card-title>
+  </mat-card-header>
+</mat-card>
+
+<mat-card class="completed-todo" *ngFor="let ctodo of completedTodos">
+  <mat-card-header>
+    <mat-card-subtitle>Completed</mat-card-subtitle>
+    <mat-card-title>{{ ctodo.title }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ ctodo.description }}</p>
+    <p>{{ ctodo.date | date : "YYYY-MM-dd hh:mm" }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button color="warn" (click)="deleteTodo(ctodo)" mat-button>DELETE</button>
+    <button (click)="markCompleted(ctodo, true)" mat-button>UNDO</button>
+  </mat-card-actions>
+</mat-card>
+
+<div *ngIf="_isLoading" class="spinner">
+  <mat-progress-spinner
+    color="primary"
+    mode="indeterminate"
+  ></mat-progress-spinner>
+</div>
