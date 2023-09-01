@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  api_url: 'http://localhost:3333/',
+  production: true,
+  api_url: 'https://go-todo-backend-production.up.railway.app',
 };
